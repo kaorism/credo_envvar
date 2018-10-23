@@ -26,6 +26,7 @@ defmodule Credo.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
       {:credo, "~> 0.10", only: [:dev, :test], runtime: false}
     ]
   end

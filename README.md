@@ -1,6 +1,6 @@
 # Credo
 
-**TODO: Add description**
+Add-on for Credo for avoiding environment variables usage at compile time
 
 ## Installation
 
@@ -10,7 +10,8 @@ by adding `credo_envvar` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:credo_envvar, "~> 0.1.0"}
+    {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
+    {:credo_envvar, "~> 0.0.1", only: [:dev, :test], runtime: false}
   ]
 end
 ```
