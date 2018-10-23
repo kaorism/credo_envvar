@@ -1,7 +1,7 @@
-defmodule CredoEnvvar.Check.Warning.EnvironmentVariblesAtCompileTimeTest do
+defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
   use Credo.TestHelper
 
-  @described_check CredoEnvvar.Check.Warning.EnvironmentVariblesAtCompileTime
+  @described_check CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime
 
   test "it should NOT report expected code" do
     """

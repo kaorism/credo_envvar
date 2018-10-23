@@ -1,4 +1,4 @@
-defmodule CredoEnvvar.Check.Warning.EnvironmentVariblesAtCompileTime do
+defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   @moduledoc """
   Application.get_env() or  System.get_env() should not appear outside def or defp.
   Since it might be compiled at build time in local or CI. Your production may use wrong ENV variables

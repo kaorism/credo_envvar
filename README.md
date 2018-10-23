@@ -38,7 +38,7 @@ Add CredoEnvvar check to `.credo.exs` in your project
   ## Warnings
   #
   {Credo.Check.Warning.BoolOperationOnSameValues},
-  {CredoEnvvar.Check.Warning.EnvironmentVariblesAtCompileTime}, # <- Add here
+  {CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime}, # <- Add here
   {Credo.Check.Warning.ExpensiveEmptyEnumCheck},
   {Credo.Check.Warning.IExPry},
 
