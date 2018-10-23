@@ -8,7 +8,8 @@ defmodule Credo.MixProject do
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      description: "Add-on for Credo for avoiding environment variables usage at compile time",
+      description:
+        "Add-on for Credo for avoiding environment variables that get evaluated at Elixir compile time.",
       package: package(),
       source_url: "https://github.com/kaorism/credo_envvar",
       name: "CredoEnvvar"
