@@ -11,14 +11,14 @@ defmodule Credo.MixProject do
       description: "Add-on for Credo for avoiding environment variables usage at compile time",
       package: package(),
       source_url: "https://github.com/kaorism/credo_envvar",
-      name: "CredoENVVar"
+      name: "CredoEnvvar"
     ]
   end
 
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {Credo.Application, []},
+      mod: {CredoEnvvar.Application, []},
       extra_applications: [:logger]
     ]
   end
@@ -33,7 +33,7 @@ defmodule Credo.MixProject do
   defp package do
     [
       files: [
-        "lib",
+        "lib/credo_envvar/check/warning/environment_variables_at_compile_time.ex",
         "mix.exs",
         "README.md",
         "LICENSE"

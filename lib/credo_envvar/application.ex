@@ -1,4 +1,4 @@
-defmodule Credo.Application do
+defmodule CredoEnvvar.Application do
   use Application
 
   def start(_type, _args) do
