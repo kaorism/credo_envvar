@@ -1,6 +1,15 @@
-# Credo
+# Credo Envvar
 
-Add-on for Credo for avoiding environment variables usage at compile time
+Add-on for Credo for avoiding environment variables get evaluated at Elixir compile time. 
+Please see [Credo](https://github.com/rrrene/credo) for usage.
+
+
+## How does it work? + Disclaimer
+
+This plugin does not guarantee 100% that all environment variables that are evaluated at compile time could be detected.
+
+It just simply check wherever Application.get_env() or System.get_env() have been used outside def or defp. 
+This will help you screen for most of the cases to make you less worried about environment variables compilation in your app.
 
 ## Installation
 
@@ -15,8 +24,47 @@ def deps do
   ]
 end
 ```
+And run:
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/credo_envvar](https://hexdocs.pm/credo_envvar).
+```
+$ mix deps.get
+```
 
+## Basic Usage
+
+Add CredoEnvvar check to `.credo.exs` in your project
+```
+  #
+  ## Warnings
+  #
+  {Credo.Check.Warning.BoolOperationOnSameValues},
+  {CredoEnvvar.Check.Warning.EnvironmentVariblesAtCompileTime}, # <- Add here
+  {Credo.Check.Warning.ExpensiveEmptyEnumCheck},
+  {Credo.Check.Warning.IExPry},
+
+```
+
+To run credo in the current project, just type:
+
+```
+$ mix credo
+```
+
+## Contributing
+
+1. [Fork it!](http://github.com/kaorism/credo_envvar/fork)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+
+## Author
+
+Theesit Konkaew (@kaorism)
+
+
+## License
+
+CredoEnvvar is released under the MIT License. See the LICENSE file for further
+details.
