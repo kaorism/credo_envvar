@@ -20,7 +20,7 @@ by adding `credo_envvar` to your list of dependencies in `mix.exs`:
 def deps do
   [
     {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
-    {:credo_envvar, "~> 0.0.1", only: [:dev, :test], runtime: false}
+    {:credo_envvar, "~> 0.0.2", only: [:dev, :test], runtime: false}
   ]
 end
 ```
