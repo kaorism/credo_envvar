@@ -61,7 +61,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   defp issue_for(issue_meta, line_no, trigger) do
     format_issue(
       issue_meta,
-      message: "Environment variables should not be used at compile time",
+      message: "Environment variables should not be evaluated at compile time",
       trigger: trigger,
       line_no: line_no
     )
