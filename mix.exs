@@ -4,12 +4,12 @@ defmodule Credo.MixProject do
   def project do
     [
       app: :credo_envvar,
-      version: "0.0.2",
+      version: "0.0.3",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description:
-        "Add-on for Credo for avoiding environment variables that get evaluated at Elixir compile time.",
+        "Add-on for Credo for checking environment variables that get evaluated at Elixir compile time.",
       package: package(),
       source_url: "https://github.com/kaorism/credo_envvar",
       name: "CredoEnvvar"
@@ -28,7 +28,7 @@ defmodule Credo.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
-      {:credo, "~> 0.10", only: [:dev, :test], runtime: false}
+      {:credo, "~> 0.10", app: false, runtime: false}
     ]
   end
 

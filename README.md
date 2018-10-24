@@ -1,6 +1,6 @@
 # Credo Envvar
 
-Add-on for Credo for avoiding environment variables that get evaluated at Elixir compile time. 
+Add-on for Credo for checking environment variables that get evaluated at Elixir compile time.
 Please see [Credo](https://github.com/rrrene/credo) for usage.
 
 
