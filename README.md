@@ -1,4 +1,6 @@
 # Credo Envvar
+[![Build Status](https://travis-ci.org/kaorism/credo_envvar.svg)](https://travis-ci.org/kaorism/credo_envvar)
+[![Hex Version](https://img.shields.io/hexpm/v/credo_envvar.svg)](https://hex.pm/packages/credo_envvar)
 
 Add-on for Credo for checking environment variables that get evaluated at Elixir compile time.
 Please see [Credo](https://github.com/rrrene/credo) for usage.
@@ -8,7 +10,7 @@ Please see [Credo](https://github.com/rrrene/credo) for usage.
 
 This plugin does not guarantee 100% that all environment variables that are evaluated at compile time could be detected.
 
-It just simply check wherever Application.get_env() or System.get_env() have been used outside def or defp. 
+It just simply check wherever Application.get_env() or System.get_env() have been used outside def or defp.
 This will help you screen for most of the cases to make you less worried about environment variables compilation in your app.
 
 ## Installation
