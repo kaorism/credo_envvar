@@ -13,7 +13,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
 
        def some_function2, do: nil
 
-       defp some_function3(param1, param2) do 
+       defp some_function3(param1, param2) do
        end
     end
     """
@@ -21,7 +21,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
     |> refute_issues(@described_check)
   end
 
-  test "in should NOT report expected code when there is only 1 def in the block" do
+  test "it should NOT report expected code when there is only 1 def in the block" do
     """
     defmodule CredoSampleModule do
       def some_foobar(foo) do
@@ -33,7 +33,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
     |> refute_issues(@described_check)
   end
 
-  test "in should NOT report expected code when there is only 1 defp in the block" do
+  test "it should NOT report expected code when there is only 1 defp in the block" do
     """
     defmodule CredoSampleModule do
       defp some_private_foobar do
@@ -45,7 +45,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
     |> refute_issues(@described_check)
   end
 
-  test "in should NOT report expected code when there are get env vars inside def" do
+  test "it should NOT report expected code when there are get env vars inside def" do
     """
     defmodule CredoSampleModule do
       def some_foobar, do: Application.get_env(:foo, :bar)
@@ -68,7 +68,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
 
   test "it should report expected code when env var is accessed outside def with Application.get_env" do
     """
-    defmodule CredoSample.Router do 
+    defmodule CredoSample.Router do
       pipeline :foo do
         plug(SamplePlug, Application.get_env(:foo, :bar))
       end
@@ -90,7 +90,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
 
   test "it should report expected code when env var is accessed outside def with System.get_env" do
     """
-    defmodule CredoSample.Router do 
+    defmodule CredoSample.Router do
       pipeline :foo do
         plug(SamplePlug, System.get_env(:foo, :bar))
       end
