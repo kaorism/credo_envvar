@@ -21,8 +21,8 @@ by adding `credo_envvar` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
-    {:credo_envvar, "~> 0.0.2", only: [:dev, :test], runtime: false}
+    {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
+    {:credo_envvar, "~> 0.1.0", only: [:dev, :test], runtime: false}
   ]
 end
 ```

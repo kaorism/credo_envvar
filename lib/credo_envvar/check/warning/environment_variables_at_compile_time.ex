@@ -8,7 +8,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   @get_env_ops_fun [{:Application, :get_env}, {:System, :get_env}]
   @ops [:def, :defp]
 
-  alias Credo.Code.CodeHelper
+  alias Credo.Code.Block
 
   use Credo.Check, base_priority: :high
 
@@ -21,7 +21,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
 
   defp traverse({:defmodule, _, _} = ast, issues, issue_meta) do
     ast
-    |> CodeHelper.do_block_for!()
+    |> Block.do_block_for!()
     |> filter_out_ops([])
     |> find_environment_vars_getter(issues, issue_meta)
   end
