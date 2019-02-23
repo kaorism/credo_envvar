@@ -45,6 +45,22 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
     |> refute_issues(@described_check)
   end
 
+  test "it should NOT report expected code when it is in a nested module" do
+    """
+    defmodule CredoSampleModule do
+      defmodule Foo do
+        defmodule Bar do
+          def some_foobar do
+            Application.get_env(:param1, :param2)
+          end
+        end
+      end
+    end
+    """
+    |> to_source_file
+    |> refute_issues(@described_check)
+  end
+
   test "it should NOT report expected code when there are get env vars inside def" do
     """
     defmodule CredoSampleModule do

@@ -40,6 +40,10 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   def filter_out_ops([], acc), do: acc
   def filter_out_ops(ast, _acc), do: ast
 
+  defp find_environment_vars_getter({:defmodule, _, _} = ast, issues, issue_meta) do
+    traverse(ast, issues, issue_meta)
+  end
+
   defp find_environment_vars_getter(ast, issues, issue_meta) do
     {ast, Credo.Code.prewalk(ast, &traverse_inside_defmodule(&1, &2, issue_meta)) ++ issues}
   end
