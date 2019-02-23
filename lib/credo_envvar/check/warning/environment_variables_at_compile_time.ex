@@ -48,6 +48,10 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
     {ast, Credo.Code.prewalk(ast, &traverse_inside_defmodule(&1, &2, issue_meta)) ++ issues}
   end
 
+  defp traverse_inside_defmodule({:defmodule, _, _} = ast, issues, issue_meta) do
+    traverse(ast, issues, issue_meta)
+  end
+
   for {ops, fun} <- @get_env_ops_fun do
     defp traverse_inside_defmodule(
            {:., meta, [{:__aliases__, _meta, [unquote(ops)]}, unquote(fun)]} = ast,
