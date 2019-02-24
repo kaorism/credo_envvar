@@ -16,7 +16,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   def run(source_file, params \\ []) do
     issue_meta = IssueMeta.for(source_file, params)
 
-    Credo.Code.prewalk(source_file, &traverse(&1, &2, issue_meta))
+    source_file
+    |> Credo.Code.prewalk(&traverse(&1, &2, issue_meta))
+    |> Enum.uniq_by(&{&1.line_no, &1.column, &1.scope})
   end
 
   defp traverse({:defmodule, _, _} = ast, issues, issue_meta) do
