@@ -82,6 +82,18 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
     |> assert_issue(@described_check)
   end
 
+  test "it should report expected code when assigns env var to module attribute with Application.get_env in nested module" do
+    """
+    defmodule credosamplemodule do
+      defmodule nestedmodule do
+        @compile_param Application.get_env(:param1, :param2)
+      end
+    end
+    """
+    |> to_source_file
+    |> assert_issue(@described_check)
+  end
+
   test "it should report expected code when env var is accessed outside def with Application.get_env" do
     """
     defmodule CredoSample.Router do
