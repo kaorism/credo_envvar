@@ -6,7 +6,7 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
 
   @explanation [check: @moduledoc]
   @get_env_ops_fun [{:Application, :get_env}, {:System, :get_env}]
-  @ops [:def, :defp]
+  @ops [:def, :defp, :defmodule]
 
   alias Credo.Code.Block
 
@@ -22,27 +22,10 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   defp traverse({:defmodule, _, _} = ast, issues, issue_meta) do
     ast
     |> Block.do_block_for!()
-    |> filter_out_ops([])
     |> find_environment_vars_getter(issues, issue_meta)
   end
 
   defp traverse(ast, issues, _source_file), do: {ast, issues}
-
-  for ops <- @ops do
-    def filter_out_ops([{unquote(ops), _, _} | tail], acc),
-      do: filter_out_ops(tail, acc)
-
-    def filter_out_ops({unquote(ops), _, _}, acc), do: acc
-  end
-
-  def filter_out_ops({:__block__, _, ast}, acc), do: filter_out_ops(ast, acc)
-  def filter_out_ops([head | tail], acc), do: filter_out_ops(tail, [head | acc])
-  def filter_out_ops([], acc), do: acc
-  def filter_out_ops(ast, _acc), do: ast
-
-  defp find_environment_vars_getter({:defmodule, _, _} = ast, issues, issue_meta) do
-    traverse(ast, issues, issue_meta)
-  end
 
   defp find_environment_vars_getter(ast, issues, issue_meta) do
     {ast, Credo.Code.prewalk(ast, &traverse_inside_defmodule(&1, &2, issue_meta)) ++ issues}
@@ -58,9 +41,27 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
     end
   end
 
-  defp traverse_inside_defmodule(ast, issues, _issue_meta) do
+  defp traverse_inside_defmodule({:defmodule, _, _} = ast, issues, _issue_meta) do
     {ast, issues}
   end
+
+  defp traverse_inside_defmodule(ast, issues, _issue_meta) do
+    filtered_ast = filter_out_ops(ast, [])
+
+    {filtered_ast, issues}
+  end
+
+  for ops <- @ops do
+    def filter_out_ops([{unquote(ops), _, _} | tail], acc),
+      do: filter_out_ops(tail, acc)
+
+    def filter_out_ops({unquote(ops), _, _}, acc), do: acc
+  end
+
+  def filter_out_ops({:__block__, _, ast}, acc), do: filter_out_ops(ast, acc)
+  def filter_out_ops([head | tail], acc), do: filter_out_ops(tail, [head | acc])
+  def filter_out_ops([], acc), do: acc
+  def filter_out_ops(ast, _acc), do: ast
 
   defp issue_for(issue_meta, line_no, trigger) do
     format_issue(
