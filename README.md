@@ -52,6 +52,16 @@ To run credo in the current project, just type:
 $ mix credo
 ```
 
+### Options
+
+#### Exclusions
+
+You can exclude files or paths with the `excluded_paths` option:
+
+```elixir
+{CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime, excluded_paths: ["test/support", "priv"]}
+```
+
 ## Contributing
 
 1. [Fork it!](http://github.com/kaorism/credo_envvar/fork)
