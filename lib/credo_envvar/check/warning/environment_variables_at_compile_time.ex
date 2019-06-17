@@ -16,7 +16,15 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   def run(source_file, params \\ []) do
     issue_meta = IssueMeta.for(source_file, params)
 
-    Credo.Code.prewalk(source_file, &traverse(&1, &2, issue_meta))
+    excluded_paths = Keyword.get(params, :excluded_paths, [])
+
+    source_file.filename
+    |> String.starts_with?(excluded_paths)
+    |> if do
+      []
+    else
+      Credo.Code.prewalk(source_file, &traverse(&1, &2, issue_meta))
+    end
   end
 
   defp traverse({:defmodule, _, _} = ast, issues, issue_meta) do

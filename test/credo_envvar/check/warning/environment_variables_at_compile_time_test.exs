@@ -82,6 +82,16 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
     |> assert_issue(@described_check)
   end
 
+  test "it should report not expected code if path is in excluded_paths" do
+    """
+    defmodule credosamplemodule do
+      @compile_param Application.get_env(:param1, :param2)
+    end
+    """
+    |> to_source_file
+    |> refute_issues(@described_check, excluded_paths: ["test-untitled"])
+  end
+
   test "it should report expected code when assigns env var to module attribute with Application.get_env in nested module" do
     """
     defmodule credosamplemodule do
