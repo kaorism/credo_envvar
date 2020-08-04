@@ -9,14 +9,15 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime do
   @ops [:def, :defp, :defmodule]
 
   alias Credo.Code.Block
+  alias Credo.Check.Params
 
-  use Credo.Check, base_priority: :high
+  use Credo.Check, base_priority: :high, param_defaults: [excluded_paths: []]
 
   @doc false
   def run(source_file, params \\ []) do
     issue_meta = IssueMeta.for(source_file, params)
 
-    excluded_paths = Keyword.get(params, :excluded_paths, [])
+    excluded_paths = Params.get(params, :excluded_paths, __MODULE__)
 
     source_file.filename
     |> String.starts_with?(excluded_paths)
