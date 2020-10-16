@@ -7,10 +7,10 @@ defmodule CredoEnvvar.Application do
     import Supervisor.Spec, warn: false
 
     children = [
-      worker(Credo.Service.SourceFileScopes, []),
-      worker(Credo.Service.SourceFileAST, []),
-      worker(Credo.Service.SourceFileLines, []),
-      worker(Credo.Service.SourceFileSource, [])
+      Credo.Service.SourceFileScopes,
+      Credo.Service.SourceFileAST,
+      Credo.Service.SourceFileLines,
+      Credo.Service.SourceFileSource
     ]
 
     opts = [strategy: :one_for_one, name: Credo.Supervisor]

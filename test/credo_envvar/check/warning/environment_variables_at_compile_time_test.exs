@@ -1,5 +1,5 @@
 defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
-  use Credo.TestHelper
+  use Credo.Test.Case
 
   @described_check CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime
 
@@ -17,8 +17,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
        end
     end
     """
-    |> to_source_file
-    |> refute_issues(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> refute_issues()
   end
 
   test "it should NOT report expected code when there is only 1 def in the block" do
@@ -29,8 +30,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> refute_issues(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> refute_issues()
   end
 
   test "it should NOT report expected code when there is only 1 defp in the block" do
@@ -41,8 +43,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> refute_issues(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> refute_issues()
   end
 
   test "it should NOT report expected code when it is in a nested module" do
@@ -57,8 +60,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> refute_issues(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> refute_issues()
   end
 
   test "it should NOT report expected code when there are get env vars inside def" do
@@ -68,8 +72,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       defp some_private_foobar, do: Application.get_env(:param1, :param2)
     end
     """
-    |> to_source_file
-    |> refute_issues(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> refute_issues()
   end
 
   test "it should report expected code when assigns env var to module attribute with Application.get_env" do
@@ -78,8 +83,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       @compile_param Application.get_env(:param1, :param2)
     end
     """
-    |> to_source_file
-    |> assert_issue(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> assert_issue()
   end
 
   test "it should report not expected code if path is in excluded_paths" do
@@ -88,8 +94,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       @compile_param Application.get_env(:param1, :param2)
     end
     """
-    |> to_source_file
-    |> refute_issues(@described_check, excluded_paths: ["test-untitled"])
+    |> to_source_file()
+    |> run_check(@described_check, excluded_paths: ["test-untitled"])
+    |> refute_issues()
   end
 
   test "it should report expected code when assigns env var to module attribute with Application.get_env in nested module" do
@@ -100,8 +107,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> assert_issue(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> assert_issue()
   end
 
   test "it should report expected code when assigns env var to module attribute with Application.get_env in nested siblings module" do
@@ -118,8 +126,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> assert_issue(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> assert_issue()
   end
 
   test "it should report expected code when env var is accessed outside def with Application.get_env" do
@@ -130,8 +139,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> assert_issue(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> assert_issue()
   end
 
   test "it should report expected code when assigns env var to module attribute with System.get_env" do
@@ -140,8 +150,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       @compile_var System.get_env(:param1, :param2)
     end
     """
-    |> to_source_file
-    |> assert_issue(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> assert_issue()
   end
 
   test "it should report expected code when env var is accessed outside def with System.get_env" do
@@ -152,8 +163,9 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> assert_issue(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> assert_issue()
   end
 
   test "it should report expected code when assigns env var to module attribute with System.get_env and nested defmodule" do
@@ -165,7 +177,8 @@ defmodule CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTimeTest do
       end
     end
     """
-    |> to_source_file
-    |> assert_issue(@described_check)
+    |> to_source_file()
+    |> run_check(@described_check)
+    |> assert_issue()
   end
 end
